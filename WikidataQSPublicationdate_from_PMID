@@ -1,0 +1,7 @@
+SELECT ?publicationDate ?pmid WHERE {
+  VALUES ?pmid {
+"15613"
+  }
+  ?article wdt:P577 ?publicationDate ;
+           wdt:P698 ?pmid .
+}
