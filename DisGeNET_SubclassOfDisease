@@ -1,7 +1,19 @@
+#DO/HPO subclasses
 Select ?disease ?type ?label
 Where {
 ?disease rdf:type ncit:C7057 .
 ?type rdfs:subClassOf+ sio:SIO_000275.
+?type rdfs:label ?label
+}
+
+LIMIT 20
+
+
+#MESH subclasses
+Select ?disease ?type ?label
+Where {
+?disease rdf:type ncit:C7057 .
+?type rdfs:subClassOf+ sio:SIO_000133.
 ?type rdfs:label ?label
 }
 
