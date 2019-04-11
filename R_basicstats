@@ -10,4 +10,4 @@ Del Piombo                8      13     16          7      A
 > school.freq = table(school)   # apply the table function
 > cbind(school.freq) 
 
-> school.relfreq = school.freq / nrow(painters #relative frequency
+> school.relfreq = school.freq / nrow(painters #relative frequency #alternatively  /lenght(painters)
