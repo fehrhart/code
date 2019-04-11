@@ -1,0 +1,6 @@
+#Barplot
+> colors = c("red", "yellow", "green", "violet", "orange", "blue", "pink", "cyan") #string of colors
+> barplot(school.freq, col=colors)      # apply the barplot function and set the color palette
+
+#Piechart
+> pie(school.freq) 
