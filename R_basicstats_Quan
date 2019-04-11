@@ -1,0 +1,32 @@
+# arithmetic mean
+> mean(column)
+> mean(column, trim=0.10) #trimming off the top and bottom 10% of values
+> sum(column)/lenght(column) #alternative
+
+# median
+> median(column)
+
+#var
+> var(column)
+
+#standard deviation
+> sd(column)
+> sqrt(var(column))
+
+#minimum
+> min()
+> max()
+> range()
+> quantile(column, probs=0.90)
+> quantile(column, probls=c(0.20, 0.50, 0.90)
+
+#sum
+> sum()
+
+#Correlation (by default = pearsson correlation)
+> cor(col1, col2)
+> cor(col1, col2, method="spearman") #replacing standard pearsson by spearman correlation
+
+#Summary of most of these values, works also for categoric data
+> summary(col) # min, 1st Quantile, median, mean, 3rd Quantile, Max
+> summary(dataset) #summary of each column
