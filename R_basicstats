@@ -1,0 +1,11 @@
+#frequency distribution
+
+ Composition Drawing Colour Expression School
+Da Udine                 10       8     16          3      A
+Da Vinci                 15      16      4         14      A
+Del Piombo                8      13     16          7      A
+
+> library(MASS)                 # load the MASS package 
+> school = painters$School      # the painter schools 
+> school.freq = table(school)   # apply the table function
+> cbind(school.freq) 
