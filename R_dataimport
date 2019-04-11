@@ -1,0 +1,17 @@
+#Import xcel file (gdata package needed) 1. read data (Perl runtime needed)
+> library(gdata)                   # load gdata package 
+> help(read.xls)                   # documentation 
+> mydata = read.xls("mydata.xls")  # read from first sheet 
+
+#or 2. load workbook (java needed)
+> library(gdata)                   # load gdata package 
+> help(read.xls)                   # documentation 
+> mydata = read.xls("mydata.xls")  # read from first sheet 
+
+#Import table file -  no headers
+> mydata = read.table("mydata.txt")  # read text file 
+> mydata                             # print data frame 
+
+#Import CSV file - with headers
+> mydata = read.csv("mydata.csv")  # read csv file 
+> mydata 				# print data frame 
