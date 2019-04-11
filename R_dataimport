@@ -1,6 +1,9 @@
 #Change working directory
 > setwd("C:/Users/Freddie/Documents/R")
 
+#convert table to data frame
+> as.data.frame.matrix(mytable) 
+
 #Import xcel file (gdata package needed) 1. read data (Perl runtime needed)
 > library(gdata)                   # load gdata package 
 > help(read.xls)                   # documentation 
