@@ -1,5 +1,18 @@
+#general save for reload without format
+save(ts, file = "ts.Rda")
+load("ts.Rda")
+
+#R source file
+dump("ts", "ts.R")
+source("ts.R")
+
 #export to txt
+write.table(MyData, file="MyData.tsv")
+read.delim("MyData.tsv")
 
-#export to csv
+#export to csv, export to working directory by default
+write.csv(MyData, file = "MyData.csv")
+write.csv(MyData, file = "MyData.csv",row.names=FALSE) #without row names
+write.table(MyData, file = "MyData.csv",row.names=FALSE, na="",col.names=FALSE, sep=",") # without column names
 
-#export to ?
+read("MyData.csv") 
