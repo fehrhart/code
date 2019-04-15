@@ -30,3 +30,5 @@
 #Summary of most of these values, works also for categoric data
 > summary(col) # min, 1st Quantile, median, mean, 3rd Quantile, Max
 > summary(dataset) #summary of each column
+
+>colMeans(x) #means of columns
