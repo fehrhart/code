@@ -1,0 +1,25 @@
+#How to get a subset of dataframe
+#1. by omitting row and column references
+>df[1:9,22:50] #row1-9 and column 22-50)
+>df[c(2,4), c(1,3)] # row 2 and 4 in column 1 and 3
+
+#2. by criteria 
+>subset (df, colname > 12) #extract that rows in which the value in column is >12
+
+#How to add a colum/row to a matrix
+>cbind
+>rbind (matrix, c(1,2,3)) #adds rows with values 1,2,3 to end of matrix
+
+#factor = variables with limited number of different values (e.g. categorical data)
+
+>data = c (1,2,3)
+>fdata = factor(data)
+>fdata 
+[1] 1 2 3 
+levels: 1 2 3 
+
+# x$y $ referst to a specific column y in dataset x
+
+# How to add row or columnames
+> mat_c <- matrix (5:16, nrow = 3, byrow = TRUE)
+> rownames(mat_c) <- c("q", "p", "r")
