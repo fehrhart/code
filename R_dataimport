@@ -21,3 +21,13 @@
 #Import CSV file - with headers
 > mydata = read.csv("mydata.csv")  # read csv file 
 > mydata 				# print data frame 
+#Example: stringsAsFactors is a logical that indicates whether strings in a data frame should be treated as factor variables or as just plain strings.
+> songs <- read.csv ("songs.csv", stringsAsFactors = FALSE) 
+> str(songs)
+
+#example: getting, adding,renaming and removing worksheets in excel
+>fish <- loadWorkbook("fish.xlsx")
+>createSheet(fish, "fish_page3")
+>renameSheet(fish,2, "newname")
+>removeSheet(fish,3)
+>getSheets(fish)
