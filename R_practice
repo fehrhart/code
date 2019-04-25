@@ -23,3 +23,5 @@ levels: 1 2 3
 # How to add row or columnames
 > mat_c <- matrix (5:16, nrow = 3, byrow = TRUE)
 > rownames(mat_c) <- c("q", "p", "r")
+#generally add names to lists
+>names(list) <-c("1")
