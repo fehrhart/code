@@ -18,7 +18,7 @@
 [1] 1 2 3 
 levels: 1 2 3 
 
-# x$y $ referst to a specific column y in dataset x
+# x$y $ referst to a specific column y in dataset x or specific vector in dataframe
 
 # How to add row or columnames
 > mat_c <- matrix (5:16, nrow = 3, byrow = TRUE)
