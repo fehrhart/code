@@ -17,6 +17,7 @@
 >fdata 
 [1] 1 2 3 
 levels: 1 2 3 
+#summary(factor) counts numbers for each factor value
 
 # x$y $ referst to a specific column y in dataset x or specific vector in dataframe
 
