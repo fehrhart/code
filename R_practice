@@ -10,6 +10,8 @@
 >planets_df[,"diameter"]
 >planets_df$diameter
 
+#define subset
+>subset(dataset, criteria)
 
 #How to add a colum/row to a matrix
 >cbind (matrix, c(1,2,3)) #adds columns with values 1,2,3 to end of matrix
@@ -39,3 +41,9 @@ levels: 1 2 3
 
 #create dataframe of different vectors name, type, diameter, rotation, and rings
 >planets_df <- data.frame(name, type, diameter, rotation, rings)
+
+#sorting
+# Use order() to create positions
+positions <- order(planets_df$diameter)
+# Use positions to sort planets_df$diameter
+planets_df [positions, ]
