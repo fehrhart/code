@@ -26,3 +26,9 @@ levels: 1 2 3
 > rownames(mat_c) <- c("q", "p", "r")
 #generally add names to lists
 >names(list) <-c("1")
+
+#see only head of dataset
+>head(dataset)
+
+#structure of dataset
+>str(dataset)
