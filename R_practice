@@ -6,12 +6,16 @@
 #2. by criteria 
 >subset (df, colname > 12) #extract that rows in which the value in column is >12
 
+>planets_df[,3]
+>planets_df[,"diameter"]
+>planets_df$diameter
+
+
 #How to add a colum/row to a matrix
 >cbind (matrix, c(1,2,3)) #adds columns with values 1,2,3 to end of matrix
 >rbind (matrix, c(1,2,3)) #adds rows with values 1,2,3 to end of matrix
 
 #factor = variables with limited number of different values (e.g. categorical data)
-
 >data = c (1,2,3)
 >fdata = factor(data)
 >fdata 
