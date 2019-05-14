@@ -47,3 +47,9 @@ levels: 1 2 3
 positions <- order(planets_df$diameter)
 # Use positions to sort planets_df$diameter
 planets_df [positions, ]
+
+#Logic operators
+#& AND operator p value & logFC
+#| OR operator +logFC |-logFC
+#! NOT operator !TRUE = FALSE
+#double && investigates only result on the first element
