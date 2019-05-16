@@ -53,3 +53,6 @@ planets_df [positions, ]
 #| OR operator +logFC |-logFC
 #! NOT operator !TRUE = FALSE
 #double && investigates only result on the first element
+
+#sum
+>sum(dataset, condition)
