@@ -5,12 +5,13 @@ install.packages("cluster")
 install.packages("magrittr")
 install.packages("fpc")
 
+# Load libraries
 library("cluster")
 library("factoextra")
 library("magrittr")
 library("fpc")
 
-# Load  and prepare the data
+# Load  and prepare the example data = data matrix or frame
 data("USArrests")
 
 my_data <- USArrests %>%
