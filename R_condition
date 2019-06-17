@@ -1,0 +1,15 @@
+if (condition) {action
+} else {action} #else must be in the same line as closing }
+
+if(condition) {
+action
+} else (condition) {action
+} else (contision) {action
+}
+
+while (condition { action
+} 
+break #insert as action to stop loop if condition is met
+
+#for loops
+for (variable in sequence) {action}
