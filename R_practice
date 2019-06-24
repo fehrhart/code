@@ -56,3 +56,16 @@ planets_df [positions, ]
 
 #sum
 >sum(dataset, condition)
+
+#loops
+primes_list <- list(2, 3, 5, 7, 11, 13)
+
+# loop version 1
+for (p in primes_list) {
+  print(p)
+}
+
+# loop version 2
+for (i in 1:length(primes_list)) {
+  print(primes_list[[i]])
+}
