@@ -1,0 +1,12 @@
+#Functions
+#input - function - output
+print(input)
+list()
+sd() - standard deviation
+help(sd) or ?sd
+args(sd) - prints arguments of a function sd
+
+#Create own functions
+new_function <- args(1,2, conditions etc.) {
+body
+}
