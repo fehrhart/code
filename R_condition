@@ -13,3 +13,4 @@ break #insert as action to stop loop if condition is met
 
 #for loops
 for (variable in sequence) {action}
+break
