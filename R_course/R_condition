@@ -14,3 +14,12 @@ break #insert as action to stop loop if condition is met
 #for loops
 for (variable in sequence) {action}
 break
+
+#Example
+pow_two <- function(x, print_info = TRUE) {
+  y <- x ^ 2
+  if (print_info) {
+    print(paste(x, "to the power two equals", y))
+  }
+  return(y)
+}
