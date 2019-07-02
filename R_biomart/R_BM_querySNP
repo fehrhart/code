@@ -1,0 +1,19 @@
+#install Biomart Package
+
+#get a list of attributes BM offers
+library(biomaRt)
+variation = useEnsembl(biomart="snp", dataset="hsapiens_snp")
+listFilters(variation)
+listAttributes(variation)
+
+#get information about a specific SNP
+library(biomaRt)
+variation = useEnsembl(biomart="snp", dataset="hsapiens_snp")
+rs1333049 <- getBM(attributes=c('refsnp_id','refsnp_source','chr_name','chrom_start','chrom_end','minor_allele','minor_allele_freq','minor_allele_count','consequence_allele_string','ensembl_gene_stable_id','ensembl_transcript_stable_id'), filters = 'snp_filter', values ="rs1333049", mart = variation)
+rs1333049
+
+#get Gene ID for a specific SNP
+library(biomaRt)
+variation = useEnsembl(biomart="snp", dataset="hsapiens_snp")
+rs1333049 <- getBM(attributes=c('ensembl_gene_stable_id'), filters = 'snp_filter', values ="rs1333049", mart = variation)
+rs1333049
