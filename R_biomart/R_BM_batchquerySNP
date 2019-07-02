@@ -1,0 +1,20 @@
+#Mart used to map SNPs to Ensembl Gene IDs
+grch37.snp = useMart(biomart="ENSEMBL_MART_SNP", host="grch37.ensembl.org", path="/biomart/martservice",dataset="hsapiens_snp")
+
+#Mart used to map Ensembl Gene IDs to Gene name
+grch37 = useMart(biomart="ENSEMBL_MART_ENSEMBL", host="grch37.ensembl.org", path="/biomart/martservice", dataset="hsapiens_gene_ensembl")
+
+
+snpList <- studyResults$SNP   #List of 5000 SNPs
+
+table1 <- getBM(attributes = c("refsnp_id", "ensembl_gene_stable_id"), 
+                      filters = "snp_filter", 
+                      values = snpList, 
+                      mart = grch37.snp)
+                      
+table2 <- getBM(attributes = c("ensembl_gene_id", "external_gene_name","external_gene_source","variation_name","start_position","end_position","description"),
+                 filters = "ensembl_gene_id", 
+                 values =  table1$ensembl_gene_stable_id, 
+                 mart = grch37)
+                 
+results <- merge(table1,table2, by.x = "ensembl_gene_stable_id", by.y="ensembl_gene_id", all.x=T)
