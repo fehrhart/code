@@ -17,3 +17,5 @@ library(biomaRt)
 variation = useEnsembl(biomart="snp", dataset="hsapiens_snp")
 rs1333049 <- getBM(attributes=c('ensembl_gene_stable_id'), filters = 'snp_filter', values ="rs1333049", mart = variation)
 rs1333049
+
+#get SNPs for gene ID?
