@@ -26,7 +26,7 @@ return (0)
 interpret(linkedin[1])
 interpret(facebook[2])
 
-#lapply function
+#lapply function - lapply(function, data)
 # The vector pioneers has already been created for you
 pioneers <- c("GAUSS:1777", "BAYES:1702", "PASCAL:1623", "PEARSON:1857")
 # Split names from birth year
