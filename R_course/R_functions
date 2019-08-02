@@ -57,3 +57,6 @@ select_second <- function(x) {
 
 # Apply select_second() over split_low: years
 years <- lapply(split_low, select_second)
+
+#Remove
+rm(function)
