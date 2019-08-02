@@ -1,3 +1,13 @@
+#R has three basic indexing operators, with syntax displayed by the following examples
+x[i]
+x[i, j]
+x[[i]]
+x[[i, j]]
+x$a
+x$"a"
+#Open parentheses () indicate the beginning of an argument list and the token to the left of the open-paren should be a function name. 
+#If there is no token to the left of the open-paren it is an implicit call to eval. 
+
 #How to get a subset of dataframe
 #1. by omitting row and column references
 >df[1:9,22:50] #row1-9 and column 22-50)
