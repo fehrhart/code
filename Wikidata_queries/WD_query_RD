@@ -1,0 +1,8 @@
+#give all diseases, that are rare diseases - and show the OMIM ID
+SELECT ?disease ?diseaseLabel ?OMIM_ID WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  ?disease wdt:P31 wd:Q12136.
+  ?disease wdt:P31 wd:Q929833.
+  OPTIONAL { ?disease wdt:P492 ?OMIM_ID. }
+}
