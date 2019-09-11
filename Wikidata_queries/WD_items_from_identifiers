@@ -15,3 +15,12 @@ SELECT ?PubMed_ID ?Wikidata_item WHERE {
   ?Wikidata_item wdt:P698 ?PubMed_ID.
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
  }
+
+#Wikidata items from Ensembl identifier
+SELECT ?Ensembl_Gene_ID ?Wikidata_item WHERE {
+  VALUES ?Ensembl_Gene_ID {
+    "ENSG00000188536"
+    }
+  ?Wikidata_item wdt:P594 ?Ensembl_Gene_ID.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+ }
