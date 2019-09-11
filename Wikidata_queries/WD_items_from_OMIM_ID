@@ -1,7 +1,0 @@
-SELECT ?OMIM_ID ?Wikidata_item WHERE {
-  VALUES ?OMIM_ID {
-    "105830"
-  }
-  ?Wikidata_item wdt:P492 ?OMIM_ID.
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-}
