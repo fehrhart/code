@@ -1,0 +1,9 @@
+SELECT ?instance_of ?instance_ofLabel ?referenceLabel WHERE {
+  
+  ?instance_of p:P31 ?diseaseNode .
+  ?diseaseNode ps:P31 wd:Q12136;
+               prov:wasDerivedFrom ?references .
+  ?references ?refProps ?reference .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}
