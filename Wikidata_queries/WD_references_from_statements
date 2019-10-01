@@ -1,3 +1,4 @@
+#gives the references for the statement that x item is a disease
 SELECT ?instance_of ?instance_ofLabel ?reference ?referenceLabel 
 WHERE {
     ?instance_of p:P31 ?diseaseNode .
