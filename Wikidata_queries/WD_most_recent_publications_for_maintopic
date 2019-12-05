@@ -1,0 +1,10 @@
+#Top 10 list of most recent publications about a certain main topic
+
+SELECT ?scholarly_article ?scholarly_articleLabel ?publication_date WHERE {
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+?scholarly_article wdt:P31 wd:Q13442814;
+wdt:P921 wd:{{q}};
+wdt:P577 ?publication_date.
+}
+ORDER by desc(?publication_date)
+LIMIT 10
