@@ -1,0 +1,13 @@
+#this query gives the authors which have the most publications on a certain main topic
+#under construction, does not work yet
+
+SELECT ?author ?authorLabel (COUNT (?scholarly_article) as ?count)
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    ?scholarly_article  wdt:P31 wd:Q13442814;
+                      wdt:P921 wd:Q917357.
+ 	?scholary_article wdt:P50 ?author.
+}
+GROUP BY ?author ?authorLabel
+ORDER BY DESC(?count)
+LIMIT 10
