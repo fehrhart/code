@@ -1,0 +1,9 @@
+
+#find genetic association for certain disease
+
+SELECT ?gene ?geneLabel WHERE {
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+?gene wdt:P31 wd:Q7187.
+?gene wdt:P2293 wd:{{q}}.
+}
+Order by ?geneLabel
