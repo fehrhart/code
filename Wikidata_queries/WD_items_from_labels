@@ -1,10 +1,10 @@
 #Wikidata items from labels whereas labels = labels of journals
-SELECT ?Wikidata_item ?native_label ?native_labelLabel WHERE {
-  VALUES ?native_label {
-    "Blood"
-    }
+SELECT DISTINCT ?Wikidata_item ?Wikidata_itemLabel  WHERE {
+
     ?Wikidata_item wdt:P31 wd:Q5633421;
-                   wdt:1705 ?native_label. #I think the problem is here, the label is not a property (wdt) but I have no idea what else
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+                   rdfs:label ?Wikidata_itemLabel .
+                  
+    FILTER (REGEX(?Wikidata_itemLabel, "blood")) # You might want to get rid of this if you want a case senstive query
+    FILTER (lang(?Wikidata_itemLabel) = "en")
  }
-LIMIT 20 #just in case
+# LIMIT 20 #just in case
