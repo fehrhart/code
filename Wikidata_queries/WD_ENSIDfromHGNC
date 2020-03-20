@@ -1,0 +1,9 @@
+#ENSIDs from HGNC symbols
+SELECT ?gene ?HGNC_gene_symbol ?Ensembl_Gene_ID WHERE {
+  VALUES ?HGNC_gene_symbol {
+    "PRKAB2"
+  }
+  ?gene wdt:P353 ?HGNC_gene_symbol;
+  wdt:P594 ?Ensembl_Gene_ID.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
