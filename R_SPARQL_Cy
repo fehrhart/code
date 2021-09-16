@@ -1,0 +1,47 @@
+#clean workspace
+rm(list=ls())
+
+#install required packages and load them
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+# SPARQL package info: https://cran.r-project.org/web/packages/SPARQL/SPARQL.pdf
+# (this version of) SPARQL package requires XML and RCurl
+BiocManager::install("XML")
+BiocManager::install("RCurl")
+BiocManager::install("SPARQL")
+
+library(XML)
+library(RCurl)
+library(SPARQL)
+
+
+#define the SPARQL endpoint 
+endpoint <- "https://sparql.wikipathways.org/sparql"
+options <- NULL
+
+#define the query itself
+query <- ("
+
+select distinct  (str(?title) as ?PathwayName) (str(?wpid) as ?PathwayID) (fn:substring(?genename,36) as ?GeneName) (fn:substring(?ncbiGeneId,33) as ?GeneID) where {
+  ?gene a wp:DataNode ;
+    dcterms:identifier ?id ;
+    dcterms:isPartOf ?pathwayRes ;
+    wp:bdbEntrezGene ?ncbiGeneId ;
+    wp:bdbHgncSymbol ?genename .
+  ?pathwayRes a wp:Pathway ;
+    dcterms:identifier ?wpid ;
+    dc:title ?title .
+}
+")
+
+#execute query
+res <- SPARQL(endpoint,query)$results
+
+#plot head of results
+head(res)
+str(res)
+
+#remove the / from the dataframe while keeping the structure
+res[] <- lapply(res, gsub, pattern='/', replacement='')
+head(res)
