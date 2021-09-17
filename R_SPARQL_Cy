@@ -56,6 +56,7 @@ colnames(NodePathways)<-c("Name", "ID")
 
 Name_ID <- rbind(NodePathways, NodeGenes)
 
+#make sure Cytoscape is up
 cytoscapePing()
 
 # Create network 
