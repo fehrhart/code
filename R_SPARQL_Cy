@@ -10,10 +10,12 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("XML")
 BiocManager::install("RCurl")
 BiocManager::install("SPARQL")
+BiocManager::install("RCy3")
 
 library(XML)
 library(RCurl)
 library(SPARQL)
+library(RCy3)
 
 
 #define the SPARQL endpoint 
@@ -35,13 +37,49 @@ select distinct  (str(?title) as ?PathwayName) (str(?wpid) as ?PathwayID) (fn:su
 }
 ")
 
-#execute query
+#execute query (will take a while to get 70 000 datapoints ;)
 res <- SPARQL(endpoint,query)$results
-
-#plot head of results
-head(res)
-str(res)
 
 #remove the / from the dataframe while keeping the structure
 res[] <- lapply(res, gsub, pattern='/', replacement='')
-head(res)
+
+#export results to file
+write.table(res, file="sparql_res.tsv")
+
+#arrange data for cytoscape import: 1. one column with all nodes
+NodePathways <- res[,1:2]
+NodeGenes <- res[,3:4]
+names(NodeGenes) <- NULL
+names(NodePathways) <- NULL
+colnames(NodeGenes)<-c("Name", "ID")
+colnames(NodePathways)<-c("Name", "ID")
+
+Name_ID <- rbind(NodePathways, NodeGenes)
+
+cytoscapePing()
+
+# Create network 
+nodes <- data.frame(id=c(Name_ID[,2]),
+                    group=c(Name_ID[,1]),
+                    stringsAsFactors=FALSE)
+edges <- data.frame(source=c(res[,4]),
+                    target=c(res[,2]),
+                    stringsAsFactors=FALSE)
+createNetworkFromDataFrames(nodes, edges)
+
+
+
+#Example from documentation
+#nodes <- data.frame(id=c("node 0","node 1","node 2","node 3"),
+                    #group=c("A","A","B","B"), #categorical strings
+                   # score=as.integer(c(20,10,15,5)), #integers
+                    #stringsAsFactors=FALSE)
+#edges <- data.frame(source=c("node 0","node 0","node 0","node 2"),
+                   # target=c("node 1","node 2","node 3","node 3"),
+                   # interaction=c("inhibits","interacts",
+                                  "activates","interacts"),  #optional
+                  #  weight=c(5.1,3.0,5.2,9.9), #numerics
+                  #  stringsAsFactors=FALSE)
+#createNetworkFromDataFrames(nodes, edges)
+
+
