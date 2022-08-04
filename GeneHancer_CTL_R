@@ -1,0 +1,59 @@
+#clean workspace
+rm(list=ls())
+
+setwd("C:/Users/friederike.ehrhart/Documents/actual_linksets/GeneHancer")
+
+library(tidyr)
+library(dplyr)
+library(stringr)
+
+#import data
+TFBS = read.table(file = 'GeneHancer_TFBSs_v5.10.txt', sep = '\t', header = TRUE)
+GeneTargets = read.table(file = 'GeneHancer_v5.10.gff', sep = '\t', header = FALSE)
+
+# remove not needed columns from GeneTargets
+GeneTargets1 <- subset(GeneTargets, select = -c(V1,V2,V4,V5,V6,V7,V8))
+
+# remove unnecessary text from string
+GeneTargets1$V9<-gsub("genehancer_id=","",as.character(GeneTargets1$V9))
+GeneTargets1$V9<-gsub("connected_gene=","",as.character(GeneTargets1$V9))
+GeneTargets1$V9<-gsub(";score=","=",as.character(GeneTargets1$V9))
+# create separate column for GHids and then remove it from string in V9
+GeneTargets1$V10=substr(GeneTargets1$V9,1,11)
+GeneTargets1$V9=str_sub(GeneTargets1$V9, 13,)
+
+# break string in V9 in separate rows
+GeneTargets2 <- separate_rows(GeneTargets1,V9,sep = ";")
+
+# break genes and scores in separate columns
+GeneTargets3=separate(GeneTargets2,V9, c("GeneTarget", "Score"), sep = "=")
+GeneTargets3$Score=as.numeric(GeneTargets3$Score)
+
+#change column names
+colnames(GeneTargets3) <-c('Regulator','GeneTarget','Score','GHid')
+
+# create small testing subsets
+GeneTargetsSmall <- GeneTargets4[1:5,]
+GeneTargetsSmall$GHid=c('GH01J149156','GH01J149156','GH01J149156','GH01J149156','GH01J149156')
+TFBSmall <- TFBS[1:5,]
+TFBSmall$GHid=c('GH01J149156','GH01J149156','GH01J149156','GH01J149156','GH01J149100')
+totalsmall <- merge(GeneTargetsSmall, TFBSmall, by="GHid")
+
+#merge ALL
+total <- merge(GeneTargets3, TFBS, by="GHid")
+
+# identify score threshold
+ScoreCheck <- as.numeric(unlist(GeneTargets3[ ,"Score"]))
+hist(ScoreCheck, breaks = 250, col = "black")
+
+#select by score
+GeneTargets4 <- subset(GeneTargets3, Score > 5)
+
+#select by score
+GeneTargets5 <- subset(GeneTargets3, Score > 200)
+
+#merge with score filter
+totalScore200 <- merge(GeneTargets5, TFBS, by="GHid")
+
+#export table as tab separated text file, without "" and row names
+write.table(totalScore200, file="GeneHancerScore200_input.txt", sep = "\t", quote=FALSE, row.names = FALSE)
