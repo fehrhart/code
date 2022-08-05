@@ -32,28 +32,47 @@ GeneTargets3$Score=as.numeric(GeneTargets3$Score)
 #change column names
 colnames(GeneTargets3) <-c('Regulator','GeneTarget','Score','GHid')
 
-# create small testing subsets
-GeneTargetsSmall <- GeneTargets4[1:5,]
-GeneTargetsSmall$GHid=c('GH01J149156','GH01J149156','GH01J149156','GH01J149156','GH01J149156')
-TFBSmall <- TFBS[1:5,]
-TFBSmall$GHid=c('GH01J149156','GH01J149156','GH01J149156','GH01J149156','GH01J149100')
-totalsmall <- merge(GeneTargetsSmall, TFBSmall, by="GHid")
+#map gene names to NCBI gene identifiers
+#download mapping file from biomart
+library(biomaRt)
+mart <- useMart("ensembl")
+#how to identify datasets and attributes
+#datasets <- listDatasets(mart)
+#attributes = listAttributes(ensembl)
+ensembl <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl")
+
+#query a list of hsa genes with 2 attributes 
+Ensembl_hsa_genes <- getBM(attributes = c("external_gene_name","entrezgene_id"),mart = useMart("ensembl", dataset = "hsapiens_gene_ensembl"))
+
+#change column name to be able to join them
+colnames(Ensembl_hsa_genes) <-c('GeneTarget','NCBIID')
+head(Ensembl_hsa_genes)
+
+#merge
+GeneTargets3E <- merge(GeneTargets3, Ensembl_hsa_genes, by="GeneTarget")
+
+# create small subsets for merge testing
+#GeneTargetsSmall <- GeneTargets3E[1:5,]
+#GeneTargetsSmall$GHid=c('GH01J149156','GH01J149156','GH01J149156','GH01J149156','GH01J149156')
+#TFBSmall <- TFBS[1:5,]
+#TFBSmall$GHid=c('GH01J149156','GH01J149156','GH01J149156','GH01J149156','GH01J149100')
+#totalsmall <- merge(GeneTargetsSmall, TFBSmall, by="GHid")
 
 #merge ALL
-total <- merge(GeneTargets3, TFBS, by="GHid")
+#total <- merge(GeneTargets3E, TFBS, by="GHid")
 
 # identify score threshold
-ScoreCheck <- as.numeric(unlist(GeneTargets3[ ,"Score"]))
-hist(ScoreCheck, breaks = 250, col = "black")
+#ScoreCheck <- as.numeric(unlist(GeneTargets3E[ ,"Score"]))
+#hist(ScoreCheck, breaks = 250, col = "black")
 
 #select by score
-GeneTargets4 <- subset(GeneTargets3, Score > 5)
+GeneTargets4 <- subset(GeneTargets3E, Score > 5)
 
 #select by score
-GeneTargets5 <- subset(GeneTargets3, Score > 200)
+GeneTargets5 <- subset(GeneTargets3E, Score > 200)
 
 #merge with score filter
-totalScore200 <- merge(GeneTargets5, TFBS, by="GHid")
+totalScore5 <- merge(GeneTargets4, TFBS, by="GHid")
 
 #export table as tab separated text file, without "" and row names
-write.table(totalScore200, file="GeneHancerScore200_input.txt", sep = "\t", quote=FALSE, row.names = FALSE)
+write.table(totalScore5, file="GeneHancerScore5_input.txt", sep = "\t", quote=FALSE, row.names = FALSE)
