@@ -1,15 +1,22 @@
-#map gene names to NCBI gene identifiers
-#download mapping file from biomart
+#How to map gene names to NCBI gene identifiers 
+
+#First, install biomaRt package and create a "mart" item
 library(biomaRt)
 mart <- useMart("ensembl")
-#how to identify datasets and attributes
+
+#Optional - how to identify datasets and attributes
 #datasets <- listDatasets(mart)
 #attributes = listAttributes(ensembl)
+
+#Define an "ensembl" item which contains the datasets and attributes you want to use
 ensembl <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl")
 
-#query a list of hsa genes with 2 attributes 
+#Create a dataframe of hsa genes with 2 attributes 
 Ensembl_hsa_genes <- getBM(attributes = c("external_gene_name","entrezgene_id"),mart = useMart("ensembl", dataset = "hsapiens_gene_ensembl"))
 
-#change column name to be able to join them
+#Change column name to be able to merge that list with the original list of genes you want the IDs for
 colnames(Ensembl_hsa_genes) <-c('GeneTarget','NCBIID')
 head(Ensembl_hsa_genes)
+
+#merge the two lists by adding the Ensembl list to the original dataset
+GeneTargets3E <- merge(GeneTargets3, Ensembl_hsa_genes, by="GeneTarget")
