@@ -14,7 +14,14 @@ Steps:
 1. Install PathVisio, the WikiPathways app and the required databases for identifier mapping following these guidelines [https://docs.google.com/document/d/14Qe54Eb-Yz3RfLLDnBV3tRNwX0PcJOX5OLUknSMINzU/edit]. Creation of a WikiPathways account is not required for this analysis.
 2. Import the RNAseq data to PathVisio following this tutorial [https://pathvisio.org/tutorials/multi-omics-tutorial.html]
 3. Calculate pathway statistics as follows:
-* Data -> Statistics
-* Set the criterion to ([LogFC] < -1 OR [LogFC] > 1) AND [P.Value] ≤ 0.05
-* Specify the pathway directory to the folder with the WikiPathways human pathway collection
-* Calculate
+  * Data -> Statistics
+  * Set the criterion to ([LogFC] < -1 OR [LogFC] > 1) AND [P.Value] ≤ 0.05
+  * Specify the pathway directory to the folder with the WikiPathways human pathway collection
+  * Calculate
+4. Open Cytoscape and install the WikiPathways app and the CyTargetLinker app.
+5. Import the pathways with a z-score > 1.96 as networks to Cytoscape using the WikiPathways app. 
+6. Merge the pathways into one large network using Tools -> Merge -> Networks -> Union
+7. Import RNAseq data using File -> Import -> Table from file. Import data as Node Table Columns, Key Column for Network should be Ensembl to match the identifiers in the RNAseq data. 
+8. Use CyTargetLinker to extend the network by clicking Apps -> CyTargetLinker -> Extend Network. Select the merged network and Ensembl as network attribute. Choose the directory that contains the CyTargetLinker linksets and hit ok. In the next window, confirm the chosen linksets. 
+9. To identify the hub nodes go to Tools -> Analyze Network (undirected). Sort the columns by Degree and export the top ten of nodes. 
+10. Retrieve the list of genes from these nodes from WikiPathways. These genes were used for enrichment analysis in g:profiler and ORSUM as described elsewhere. 
