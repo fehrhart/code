@@ -1,3 +1,4 @@
+#Monte Carlo simulation test "large" - this test checks if groups of pathways overlap with a pathway when replaced randomly by genes available in WP. The results are given in 0 (no overlap) and 1 (overlapping genes (one or more!) found).
 #clean workspace
 rm(list=ls())
 setwd("C:/...")
@@ -15,7 +16,7 @@ as.data.frame.matrix(countlist)
 #subset list of available genes 
 Available_genes <- (countlist$HGNC)
 
-#2. create original subsets
+#2. create original gene subsets per pathway
 WP4905 <- data.frame(c("ACP6","AFDN","AMELX","BCL9","CHD1L","CTNNB1","F11R","FMO5","GJA1","GJA3","GJA5","GJA8","KIRREL1","LINC00624","NBP12","OCLN","PRKAA1","PRKAA2","PRKAB1","PRKAB2","PRKAG1","PRKAG2","PRKAG3","PYGO1","PYGO2","TJP1","TJP2","TJP3"))
 colnames(WP4905) <-("gene")
 WP4906 <- data.frame(c("ADAM10","AKT1","BRINP1","CASP7","CEP19","CEP350","DLG1","DLG1-AS1","DYNC2H1","DYNC2LI1","DYNLL1","DYNLL2","DYNLRB1","DYNLRB2","DYNLT1","DYNLT3","FBXO45","FBXW7","FGFR1OP","FNDC8","GRIA1","HAMP","HFE","HIF1A","JUN","LINC00885","LINC01063","MAD2L1BP","MCRS1","MELTF","MELTF-AS1","MIR4797","MYC","MYCBP2","NCBP1","NCBP2","NCBP2-AS1","NCBP2-AS2","NF2","NRROS","PAK2","PCYT1A","PIGM","PIGX","PIGZ","PIK3R3","PXN","RABL2B","RABL2B","RNF168","RNF8","SDHAP1","SENP5","SIRT1","SLC40A1","SLC51A","SLC51B","SMCO1","STAT5A","STAT5B","TCTEX1D2","TF","TFRC","TGFB1","TM4SF19","TM4SF19-AS1","UBE2N","UBXN7","WDR34","WDR53","WDR60","ZDHHC19","ZNF76"))
@@ -35,11 +36,8 @@ colnames(WP4657) <-("gene")
 WP2380 <- data.frame(c("ACACB","ADAM17","AKT1","ALPL","APC","BAD","BCL2L11","BDNF","BMP2","CAMK1","CAMK2A","CAMK4","CASP3","CDC42","CDH2","CDK5","CDK5R1","CDKL5","CFL1","CHUK","CNR1","CREB1","CRTC1","CSNK2A1","CTNNB1","CYFIP1","DLG1","DOCK3","DOK5","DPYSL2","EEF2","EGR1","EGR2","EIF2S1","EIF2S2","EIF4E","EIF4EBP1","ELK1","FOS","FOXO3","FRS2","FRS3","FYN","GABRB3","GRB2","GRIA1","GRIA2","GRIA3","GRIN1","GRIN2B","GRIP1","GSK3B","HRAS","IGF2BP1","IKBKB","IKBKG","IRS1","IRS2","JAK2","JUN","KCNA3","KCNN2","KIDINS220","KSR1","LINGO1","MAP2K1","MAP2K2","MAP2K5","MAP3K1","MAP3K2","MAPK1","MAPK10","MAPK14","MAPK3","MAPK7","MAPK8","MAPK9","MAPT","MARCKS","MEF2A","MEF2C","MTOR","NCAM1","NCF1","NCF2","NCK1","NCK2","NFATC4","NFKB1","NFKBIA","NGF","NGFR","NSF","NTF3","NTRK1","NTRK2","NTRK3","PDPK1","PIK3R1","PIK3R2","PLCG1","PPP2CA","PRKAA1","PRKAA2","PRKCD","PTK2B","PTPN11","PTPRF","RAB3A","RAC1","RACK1","RAF1","RANBP9","RAP1A","RASGRF1","RELA","RHOG","RPS6","RPS6KA1","RPS6KA3","RPS6KA5","RPS6KB1","SH2B1","SH2B2","SHC1","SHC2","SHC3","SHC4","SIRPA","SORT1","SPP1","SQSTM1","SRC","STAT1","STAT3","STAT5A","STAT5B","SYN1","TIAM1","TRAF6","TSC2","VAV2","VAV3","YBX1"))
 colnames(WP2380) <-("gene")
 
-#CNV_pathways <- c[WP4905,WP4906,WP4932,WP4940,WP4942,WP4950,WP4949,WP4657]
-#BDNF_pathway <- c[WP2380]
-
 #___________________________________
-#Repetition
+#Repetition begin
 #2. random sampling of genes according to their frequency in 8 pathways according to their number of genes
 #unique genes per pathway, capped max freq
 #counttable genes of WP - counttable genes in CNV - (remove those with very low freq which are only in CNV pathways) - adjust total number of genes in the respective CNV pathway
@@ -80,7 +78,7 @@ count_WP4657 <- c(dim(WP4657)[1])
 n_WP4657 <- data.frame(sample(Available_genes, size = count_WP4657, replace = FALSE, prob = NULL))
 colnames(n_WP4657) <-("gene")
 
-#3. compare if WP???? and WP2380 overlap, if dimension(row) of overlap > 0 set overlap to 1, sum up numbers at the end
+#3. compare if WP.... and WP2380 overlap, if dimension(row) of overlap > 0 set overlap to 1, sum up numbers at the end
 WP2380_WP4905 <- inner_join(WP2380,n_WP4905)
 if (dim(WP2380_WP4905)[1] == 0){WP2380_WP4905 <- c(0)}else{WP2380_WP4905 <- c(1)}
 
@@ -114,7 +112,10 @@ if (i>100) {break}
 }
 #_______________________________________________________
 #repetition end
+#this is set to i=100 repetitions for testing
 
-#Results are in resultList, as double list, type conversion and plotting
+#Results are in resultList, as double list, this step does type conversion and plotting of the results as mean, sd and histogram plot
 resultList <- as.numeric(resultList)
+mean(resultList)
+sd(resultList)
 hist(resultList)
