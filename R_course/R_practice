@@ -1,4 +1,4 @@
-#R has three basic indexing operators, with syntax displayed by the following examples
+#R has three basic indexing operators, with syntax displayed by the following examples...
 x[i]
 x[i, j]
 x[[i]]
